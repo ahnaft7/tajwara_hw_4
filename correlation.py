@@ -2,8 +2,9 @@
 Ahnaf Tajwar
 Class: CS 677
 Date: 4/07/24
-Homework Problem # 1
-Description of Problem (just a 1-2 line summary!): This problem is to
+Homework Problem # 1-3
+Description of Problem (just a 1-2 line summary!): These problems are to calculate the correlation matrix for four features related to heart failure in surviving and deceased patients.
+    It also is to fit 5 different models to the data, calculate some metrics, and observe which is the best fit.
 """
 
 import pandas as pd
@@ -30,7 +31,7 @@ print(df_0.head())
 print("\nDataFrame for death event = 1:")
 print(df_1.head())
 
-# Calculate correlation matrices
+# Calculating correlation matrices
 corr_matrix_0 = df_0.corr()
 corr_matrix_1 = df_1.corr()
 
@@ -93,7 +94,8 @@ plt.xlabel('Creatinine Phosphokinase')
 plt.ylabel('Platelets')
 plt.title('Simple Linear Regression (Surviving)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Linear_death_0.png")
 
 # Quadratic
 print("\n-----Quadratic-----\n")
@@ -127,7 +129,8 @@ plt.xlabel('Creatinine Phosphokinase')
 plt.ylabel('Platelets')
 plt.title('Quadratic Model (Surviving)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Quadratic_death_0.png")
 
 # Cubic
 print("\n-----Cubic-----\n")
@@ -161,7 +164,8 @@ plt.xlabel('Creatinine Phosphokinase')
 plt.ylabel('Platelets')
 plt.title('Cubic Model (Surviving)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Cubic_death_0.png")
 
 # Logarithmic
 print("\n-----y = a log x + b (GLM - generalized linear model)-----\n")
@@ -206,7 +210,8 @@ plt.xlabel('log(Creatinine Phosphokinase)')
 plt.ylabel('Platelets')
 plt.title('Simple Linear Regression with Log Transformation X (Surviving)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Log_death_0.png")
 
 # Logarithmic
 print("\n-----log y = a log x + b (GLM - generalized linear model)-----\n")
@@ -268,7 +273,8 @@ plt.xlabel('log(Creatinine Phosphokinase)')
 plt.ylabel('log(Platelets)')
 plt.title('Simple Linear Regression with Log Transformation Y and X (Surviving)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Log_log_death_0.png")
 
 # Comparing Models for deceased patients
 print("\n-----Comparing Models for deceased patients-----\n")
@@ -309,7 +315,8 @@ plt.xlabel('Creatinine Phosphokinase')
 plt.ylabel('Platelets')
 plt.title('Simple Linear Regression (Deceased)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Linear_death_1.png")
 
 # Quadratic
 print("\n-----Quadratic-----\n")
@@ -343,7 +350,8 @@ plt.xlabel('Creatinine Phosphokinase')
 plt.ylabel('Platelets')
 plt.title('Quadratic Model (Deceased)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Quadratic_death_1.png")
 
 # Cubic
 print("\n-----Cubic-----\n")
@@ -377,7 +385,8 @@ plt.xlabel('Creatinine Phosphokinase')
 plt.ylabel('Platelets')
 plt.title('Cubic Model (Deceased)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Cubic_death_1.png")
 
 # Logarithmic
 print("\n-----y = a log x + b (GLM - generalized linear model)-----\n")
@@ -422,7 +431,8 @@ plt.xlabel('log(Creatinine Phosphokinase)')
 plt.ylabel('Platelets')
 plt.title('Simple Linear Regression with Log Transformation X (Deceased)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Log_death_1.png")
 
 # Logarithmic
 print("\n-----log y = a log x + b (GLM - generalized linear model)-----\n")
@@ -484,9 +494,10 @@ plt.xlabel('log(Creatinine Phosphokinase)')
 plt.ylabel('log(Platelets)')
 plt.title('Simple Linear Regression with Log Transformation Y and X (Deceased)')
 plt.legend()
-plt.show()
+# plt.show()
+plt.savefig("Log_log_death_1.png")
 
-print('\nSSE Values', sse_dict)
+print('\nSSE Values: ', sse_dict)
 
 # Initialize variables to store the smallest and largest SSE values and corresponding model names
 smallest_surviving_sse = float('inf')
