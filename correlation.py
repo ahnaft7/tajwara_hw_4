@@ -74,16 +74,17 @@ print("Sum of Squared Residuals (SSE):", SSE)
 r2 = r2_score(Y_test, predicted)
 print("r2: ", r2)
 
-x_points = np.linspace(0,5000, 10000)
+# Plot
+x_points = np.linspace(0, max(X), 100)
 y_points = model(x_points)
 
-ax, fig = plt.subplots()
-plt.xlim(0, 3000)
-plt.ylim(0, 500000)
-plt.xlabel('X')
-plt.ylabel('Y', rotation=0)
-plt.plot(x_points, y_points, lw =3, color='blue')
-plt.scatter(X_test, Y_test, color ='black', s=50)
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, Y_test, color='black', label='Actual')
+plt.plot(x_points, y_points, color='blue', label='Predicted')
+plt.xlabel('Creatinine Phosphokinase')
+plt.ylabel('Platelets')
+plt.title('Simple Linear Regression')
+plt.legend()
 plt.show()
 
 # Quadratic
@@ -105,16 +106,17 @@ print("Sum of Squared Residuals (SSE):", SSE)
 r2 = r2_score(Y_test, predicted)
 print("r2: ", r2)
 
-x_points = np.linspace(0,5000, 10000)
+# Plot
+x_points = np.linspace(0, max(X), 100)
 y_points = model(x_points)
 
-ax, fig = plt.subplots()
-plt.xlim(0, 3000)
-plt.ylim(0, 500000)
-plt.xlabel('X')
-plt.ylabel('Y', rotation=0)
-plt.plot(x_points, y_points, lw =3, color='blue')
-plt.scatter(X_test, Y_test, color ='black', s=50)
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, Y_test, color='black', label='Actual')
+plt.plot(x_points, y_points, color='blue', label='Predicted')
+plt.xlabel('Creatinine Phosphokinase')
+plt.ylabel('Platelets')
+plt.title('Quadratic Model')
+plt.legend()
 plt.show()
 
 # Cubic
@@ -136,14 +138,108 @@ print("Sum of Squared Residuals (SSE):", SSE)
 r2 = r2_score(Y_test, predicted)
 print("r2: ", r2)
 
-x_points = np.linspace(0,5000, 10000)
+# Plot
+x_points = np.linspace(0, max(X), 100)
 y_points = model(x_points)
 
-ax, fig = plt.subplots()
-plt.xlim(0, 3000)
-plt.ylim(0, 500000)
-plt.xlabel('X')
-plt.ylabel('Y', rotation=0)
-plt.plot(x_points, y_points, lw =3, color='blue')
-plt.scatter(X_test, Y_test, color ='black', s=50)
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, Y_test, color='black', label='Actual')
+plt.plot(x_points, y_points, color='blue', label='Predicted')
+plt.xlabel('Creatinine Phosphokinase')
+plt.ylabel('Platelets')
+plt.title('Cubic Model')
+plt.legend()
+plt.show()
+
+# Logarithmic
+print("\n-----y = a log x + b (GLM - generalized linear model)-----\n")
+
+# Transform the independent variable using natural logarithm
+X_log = np.log(X)
+
+# Split data into training and testing sets
+X_train, X_test, Y_train, Y_test = train_test_split(X_log, Y, test_size=0.5, random_state=1)
+
+# Fit the model
+degree = 1
+weights = np.polyfit(X_train, Y_train, degree)
+print("weights: ", weights)
+model = np.poly1d(weights)
+
+# Make predictions
+predicted = model(X_test)
+
+# Compute metrics
+rmse = np.sqrt(mean_squared_error(Y_test, predicted))
+print("rmse: ", rmse)
+
+# Calculate residuals
+residuals = Y_test - predicted
+squared_residuals = residuals ** 2
+SSE = sum(squared_residuals)
+print("Sum of Squared Residuals (SSE):", SSE)
+r2 = r2_score(Y_test, predicted)
+print("r2: ", r2)
+
+# Plot
+x_points = np.linspace(0, max(X_log), 100)
+y_points = model(x_points)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, Y_test, color='black', label='Actual')
+plt.plot(x_points, y_points, color='blue', label='Predicted')
+plt.xlabel('log(Creatinine Phosphokinase)')
+plt.ylabel('Platelets')
+plt.title('Simple Linear Regression with Log Transformation X')
+plt.legend()
+plt.show()
+
+# Logarithmic
+print("\n-----log y = a log x + b (GLM - generalized linear model)-----\n")
+
+# Transform the independent variable using natural logarithm
+X = np.array(df_0['creatinine_phosphokinase'].values.reshape(-1, 1))
+Y = np.array(df_0['platelets'].values)
+X_log = np.log(X)
+Y_log = np.log(Y)
+
+# Split data into training and testing sets
+X_train, X_test, Y_train, Y_test = train_test_split(X_log, Y_log, test_size=0.5, random_state=1)
+
+# Fit the model
+model = LinearRegression()
+model.fit(X_train, Y_train)
+
+# Obtain the coefficients
+a = model.coef_[0]
+b = model.intercept_
+
+# Make predictions
+predicted = model.predict(X_test)
+
+# Compute metrics
+rmse = np.sqrt(mean_squared_error(Y_test, predicted))
+r2 = r2_score(Y_test, predicted)
+
+# Calculate residuals
+residuals = Y_test - predicted
+squared_residuals = residuals ** 2
+SSE = sum(squared_residuals)
+print("Slope (a):", a)
+print("Intercept (b):", b)
+print("rmse:", rmse)
+print("SSE:", SSE)
+print("r2:", r2)
+
+# Plot
+x_points = np.linspace(0, max(X_log), 100)
+y_points = model.predict(x_points)
+
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, Y_test, color='black', label='Actual')
+plt.plot(x_points, y_points, color='blue', label='Predicted')
+plt.xlabel('log(Creatinine Phosphokinase)')
+plt.ylabel('log(Platelets)')
+plt.title('Simple Linear Regression with Log Transformation Y and X')
+plt.legend()
 plt.show()
